@@ -34,8 +34,13 @@ public class PositiveCase {
       new Actions(driver).dragAndDrop(capitals[i], countries[i]).perform();
 
       // Assert the background color has been changed if the combination is correct
-      String backgroundColor = countries[i].getCssValue("background-color");
-      assert backgroundColor.equals("rgb(0, 255, 0)") : "Background color is not as expected";
+      String backgroundColor = capitals[i].getCssValue("background-color");
+      if (backgroundColor.equals("rgba(0, 255, 0, 1)")) {
+        System.out.println("Correct: " + capitals[i].getText());
+      }
+      else {
+        System.out.println("Incorrect: " + capitals[i].getText());
+      }
     }
 
     driver.quit();

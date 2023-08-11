@@ -12,12 +12,31 @@ public class PositiveCase {
 
     // get locator of all Capitals and Countries
     WebElement Seoul = driver.findElement(By.xpath("//*[text()='Seoul' and @id='box5']"));
+    WebElement Copenhagen = driver.findElement(By.xpath("//*[text()='Copenhagen' and @id='box4']"));
+    WebElement Washington = driver.findElement(By.xpath("//*[text()='Washington' and @id='box3']"));
+    WebElement Rome = driver.findElement(By.xpath("//*[text()='Rome' and @id='box6']"));
+    WebElement Oslo = driver.findElement(By.xpath("//*[text()='Oslo' and @id='box1']"));
+    WebElement Stockholm = driver.findElement(By.xpath("//*[text()='Stockholm' and @id='box2']"));
+    WebElement Madrid = driver.findElement(By.xpath("//*[text()='Madrid' and @id='box7']"));
+
     WebElement Korea = driver.findElement(By.xpath("//*[text()='South Korea']"));
+    WebElement Italy = driver.findElement(By.xpath("//*[text()='Italy']"));
+    WebElement Spain = driver.findElement(By.xpath("//*[text()='Spain']"));
+    WebElement Norway = driver.findElement(By.xpath("//*[text()='Norway']"));
+    WebElement Denmark = driver.findElement(By.xpath("//*[text()='Denmark']"));
+    WebElement Sweden = driver.findElement(By.xpath("//*[text()='Sweden']"));
+    WebElement UnitedStates = driver.findElement(By.xpath("//*[text()='United States']"));
 
-    new Actions(driver).dragAndDrop(Seoul, Korea).perform();
-    String backgroundColor = Korea.getCssValue("background-color");
+    WebElement[] capitals = {Seoul, Madrid, Copenhagen, Rome, Oslo, Stockholm, Washington};
+    WebElement[] countries = {Korea, Spain, Denmark, Italy, Norway, Sweden, UnitedStates};
 
-    assert backgroundColor.equals("rgb(0, 255, 0)") : "Background color is not as expected";
+    for (int i = 0; i < capitals.length; i++) {
+      new Actions(driver).dragAndDrop(capitals[i], countries[i]).perform();
+
+      // Assert the background color has been changed if the combination is correct
+      String backgroundColor = countries[i].getCssValue("background-color");
+      assert backgroundColor.equals("rgb(0, 255, 0)") : "Background color is not as expected";
+    }
 
     driver.quit();
   }
